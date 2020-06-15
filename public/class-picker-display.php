@@ -13,13 +13,24 @@ class Super_Color_Picker_Display {
     }
  
     public function init() {
+        add_action( 'wp_enqueue_scripts', array($this,'wpa82718_scripts') );
         add_action( 'woocommerce_before_add_to_cart_button', array($this,'cfwc_display_custom_field') );
         add_filter( 'woocommerce_add_to_cart_validation', array($this,'cfwc_validate_custom_field'), 10, 3 );
         add_filter( 'woocommerce_add_cart_item_data', array($this,'cfwc_add_custom_field_item_data'), 10, 4 );
         add_filter( 'woocommerce_cart_item_name', array($this,'cfwc_cart_item_name'), 10, 3 );
-        add_action( 'woocommerce_checkout_create_order_line_item', array($this,'cfwc_add_custom_data_to_order'), 10, 4 );        
+        add_action( 'woocommerce_checkout_create_order_line_item', array($this,'cfwc_add_custom_data_to_order'), 10, 4 );
+        
     }
- 
+
+function wpa82718_scripts() {
+    // Enqueuing CSS stylesheet for Iris (the easy part)
+    wp_enqueue_style( 'wp-color-picker' );
+    //wp_enqueue_script( 'wp-color-picker' );       
+        wp_enqueue_script( 'iris', admin_url( 'js/iris.min.js' ), array( 'jquery-ui-draggable', 'jquery-ui-slider', 'jquery-touch-punch' ), false, 1 );
+    wp_enqueue_script( 'cpa-color-picker', plugins_url('../custom-script.js', __FILE__), array('jquery'), '', true );
+}
+    
+    
 /**
  * Display custom field on the front end
  * @since 1.0.0
@@ -32,7 +43,7 @@ class Super_Color_Picker_Display {
         if( $title ) {
             // Only display our field if we've got a value for the field title
             printf(
-                '<div class="cfwc-custom-field-wrapper"><label for="cfwc-title-field">%s</label><input type="text" id="%s" name="%s" value=""></div>',
+                '<div class="cfwc-custom-field-wrapper"><label for="cfwc-title-field">%s</label><input type="text" id="%s" class="cpa-color-picker" name="%s" value=""></div>',
                 esc_html( $title ), esc_html($this->formfield_id), esc_html($this->formfield_id)
             );
         }
