@@ -60,13 +60,14 @@ function wpa82718_scripts() {
         // Check for the custom field value
         $product = wc_get_product( $post->ID );
         $title = $product->get_meta($this->textfield_id );
-        //if( $title ) {
+        if( $title ) {
+            $title = '';//__('');
             // Only display our field if we've got a value for the field title
             printf(
                 '<div class="cfwc-custom-field-wrapper"><label for="cfwc-title-field">%s</label><input type="text" id="%s" class="cpa-color-picker wp-color-result-text" name="%s" value=""></div>',
                 esc_html( $title ), esc_html($this->formfield_id), esc_html($this->formfield_id)
             );
-            //}
+            }
     }
 
     function cfwc_validate_custom_field( $passed, $product_id, $quantity ) {
