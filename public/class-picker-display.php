@@ -25,9 +25,24 @@ class Super_Color_Picker_Display {
 function wpa82718_scripts() {
     // Enqueuing CSS stylesheet for Iris (the easy part)
     wp_enqueue_style( 'wp-color-picker' );
-    //wp_enqueue_script( 'wp-color-picker' );       
-        wp_enqueue_script( 'iris', admin_url( 'js/iris.min.js' ), array( 'jquery-ui-draggable', 'jquery-ui-slider', 'jquery-touch-punch' ), false, 1 );
-    wp_enqueue_script( 'cpa-color-picker', plugins_url('../custom-script.js', __FILE__), array('jquery'), '', true );
+     wp_enqueue_script( 'wp-color-picker' );       
+   wp_enqueue_script( 'iris', admin_url( 'js/iris.min.js' ), array( 'jquery-ui-draggable', 'jquery-ui-slider', 'jquery-touch-punch' ), false, 1 );
+    wp_enqueue_script(
+        'wp-color-picker',
+        admin_url( 'js/color-picker.min.js' ),
+        array( 'iris' ),
+        false,
+        1
+    );
+    $colorpicker_l10n = array(
+        'clear' => __( 'Clear' ),
+        'defaultString' => __( 'Default' ),
+        'pick' => __( 'Select Color' ),
+        'current' => __( 'Current Color' ),
+    );
+    wp_localize_script( 'wp-color-picker', 'wpColorPickerL10n', $colorpicker_l10n ); 
+
+    wp_enqueue_script( 'cpa-color-picker', plugins_url('../custom-script.js', __FILE__), array('jquery','wp-color-picker'), '', true );
 }
     
     
@@ -43,7 +58,7 @@ function wpa82718_scripts() {
         if( $title ) {
             // Only display our field if we've got a value for the field title
             printf(
-                '<div class="cfwc-custom-field-wrapper"><label for="cfwc-title-field">%s</label><input type="text" id="%s" class="cpa-color-picker" name="%s" value=""></div>',
+                '<div class="cfwc-custom-field-wrapper"><label for="cfwc-title-field">%s</label><input type="text" id="%s" class="cpa-color-picker wp-color-result-text" name="%s" value=""></div>',
                 esc_html( $title ), esc_html($this->formfield_id), esc_html($this->formfield_id)
             );
         }
