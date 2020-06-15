@@ -68,7 +68,7 @@ function cfwc_add_custom_data_to_order( $item, $cart_item_key, $values, $order )
         function color_to_html($cart_item){
         if( isset( $cart_item['title_field'] ) ) {
             $name .= sprintf(
-                '<div style="display: inline-flex;"><div class="show-color-box" style="background-color:%s"></div>%s</div>',
+                '<div style="display: inline-flex;"><div class=" show-color-box wp-color-picker" style="background-color:%s"></div>%s</div>',
                 esc_html( $cart_item['title_field']), esc_html($cart_item['title_field'])
             );
         }

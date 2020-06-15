@@ -28,8 +28,6 @@ function wpa82718_scripts() {
     // Enqueuing CSS stylesheet for Iris (the easy part)
     wp_enqueue_style( 'wp-color-picker' );
     wp_enqueue_style( 'super-color-picker.css', MY_PLUGIN_PATH . '/includes/super-color-picker.css' );
-
-
     
     //Enqueuing JS
     wp_enqueue_script( 'wp-color-picker' );       
@@ -106,7 +104,7 @@ function cfwc_add_custom_field_item_data( $cart_item_data, $product_id, $variati
  */
 function cfwc_cart_item_name( $name, $cart_item, $cart_item_key ) {
 	if( isset( $cart_item['title_field'] ) ) {
-        $name .= '<br>'.self::color_to_html($cart_item);
+        $name .= '&nbsp;'. self::color_to_html($cart_item);
 	}
 	return $name;
 }    
@@ -126,7 +124,7 @@ function cfwc_add_custom_data_to_order( $item, $cart_item_key, $values, $order )
     public static function color_to_html($cart_item){
         if( isset( $cart_item['title_field'] ) ) {
             $name .= sprintf(
-                '<div style="display: inline-flex;"><div class="show-color-box wp-color-picker" style="background-color:%s"></div>%s</div>',
+                '<div class="picker-container" style="display: inline-flex;"><div class="aaa show-color-box wp-color-picker" style="background-color:%s"></div>%s</div>',
                 esc_html( $cart_item['title_field']), esc_html($cart_item['title_field'])
             );
         }
