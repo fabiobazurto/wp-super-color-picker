@@ -1,0 +1,9 @@
+.wp-picker-container .wp-color-result.button{
+    padding: 0 1px 0 30px !important;
+}
+
+.show-color-box{
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+}
